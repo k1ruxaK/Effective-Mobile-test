@@ -64,23 +64,22 @@ def missing_number(nums: list[int]) -> int:
 ### Задание 3: Факторизация
 Реализовать функцию (или тело функции), которая при введении натурального числа n разбивает его на простые множители (представить его в виде простых чисел).
 ```python
-def is_isomorph(s: str, t: str) -> bool:
-    if len(s) != len(t):
-        return False
+def prime_factors(n: int) -> list[int]:
+    factors = []
+    while n % 2 == 0:
+        factors.append(2)
+        n //= 2
+        
+    divisor = 3
+    while divisor * divisor <= n:
+        while n % divisor == 0:
+            factors.append(divisor)
+            n //= divisor
+        divisor += 2
+        
+    if n > 1:
+        factors.append(n)
 
-    con_s_to_t = {}
-    con_t_to_s = {}
-
-    for char_s, char_t in zip(s, t):
-        if char_s in con_s_to_t and con_s_to_t[char_s] != char_t:
-            return False
-        if char_t in con_t_to_s and con_t_to_s[char_t] != char_s:
-            return False
-            
-        con_s_to_t[char_s] = char_t
-        con_t_to_s[char_t] = char_s
-
-    return True
 ```
 **Ответ:** Сложность по времени: O((sqrt(N)))
            Сложность по памяти: O(log(N)))
